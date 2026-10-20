@@ -32,14 +32,14 @@
       display: none !important
     }
   </style>
-</head>
-
-<body>
   <title>Jar of Memories</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Figtree:wght@400;500;600&family=Young+Serif&display=swap">
+</head>
+
+<body>
   <style>
     /* Layout: a lamp-lit night shelf. The jar and a pile of read chits sit on it. A chit flies out of the jar into a reader layer, the jar blurs behind it, and the chit unfolds like a tri-fold letter. */
     :root {
@@ -1295,9 +1295,165 @@
         transition-duration: .01s
       }
     }
+
+    /* Cozy Romantic Preloader Screen */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #14101E;
+      background: radial-gradient(circle at 50% 45%, #231A2E 0%, #14101E 75%, #0B0812 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .preloader.fade-out {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    .preloader-content {
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .preloader-candle {
+      position: relative;
+      width: 40px;
+      height: 60px;
+      margin-bottom: 6px;
+    }
+
+    .p-halo {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(243, 181, 98, 0.5) 0%, rgba(243, 181, 98, 0) 70%);
+      animation: candlePulse 2s ease-in-out infinite alternate;
+    }
+
+    .p-flame {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 22px;
+      background: #F3B562;
+      border-radius: 50% 50% 35% 35%;
+      box-shadow: 0 0 16px rgba(243, 181, 98, 0.9), 0 0 28px rgba(243, 181, 98, 0.5);
+      animation: flameWiggle 1.8s ease-in-out infinite alternate;
+    }
+
+    .p-wax {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 26px;
+      background: #E8D6B4;
+      border-radius: 3px;
+    }
+
+    .p-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 26px;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .p-sub {
+      font-family: var(--body);
+      font-size: 15px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.4;
+      transition: all 0.4s ease;
+    }
+
+    .p-progress {
+      width: 180px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .p-bar {
+      width: 10%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--rose), var(--accent), var(--lamp));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .p-btn {
+      margin-top: 8px;
+      padding: 0 32px;
+      font-size: 17px;
+      box-shadow: 0 10px 28px rgba(240, 160, 174, 0.35);
+      animation: pulseBtn 2s ease-in-out infinite alternate;
+      cursor: pointer;
+    }
+
+    @keyframes pulseBtn {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(240, 160, 174, 0.3);
+      }
+
+      100% {
+        transform: scale(1.03);
+        box-shadow: 0 12px 32px rgba(240, 160, 174, 0.5);
+      }
+    }
+
+    .p-tip {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--muted);
+      margin: 2px 0 0;
+      opacity: 0.85;
+    }
   </style>
 
   <div id="app" class="phase-intro">
+    <div id="preloader" class="preloader">
+      <div class="preloader-content">
+        <div class="preloader-candle" aria-hidden="true">
+          <div class="p-halo"></div>
+          <div class="p-flame"></div>
+          <div class="p-wax"></div>
+        </div>
+        <h2 class="p-title" id="pTitle">Getting a little surprise ready for you. 🤍</h2>
+        <p class="p-sub" id="pSub">Gathering our sweet memories... ✨</p>
+        <div class="p-progress" id="pProgress">
+          <div class="p-bar" id="pBar"></div>
+        </div>
+        <button type="button" class="btn p-btn" id="pEnterBtn" style="display:none;">
+          Open the Jar ✨
+        </button>
+        <p class="p-tip" id="pTip" style="display:none;">Best experienced with sound on. 🎧🤍</p>
+      </div>
+    </div>
     <div class="bokeh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="motes" id="motes" aria-hidden="true"></div>
     <div class="top"><button class="pill" id="sound" type="button">Sound off</button></div>
@@ -1441,7 +1597,7 @@
           photo: './assets/images/pillu-meets-bingus.jpeg',
           photoPos: 'center 32%',
           photoCaption: 'Two Pillus Together 🐱🥰',
-          text: 'Tula mazya ghari aanyacha aani Bingus la bhetvaycha mi kiti divsa pasun vichar karat hoto! Tu aali aani Bingus tujhyach javal yeun shant jhopla... tyala pan lagech samajla ki tu kiti special aahes.',
+          text: 'Tula mazya ghari aanyacha aani Bingus la bhetvaycha mi kiti divsa pasun vichar karat hoto! Tu aali aani Bingus tujha javal yeun shant jhopla... tyala pan lagech samajla ki tu kiti special aahes.',
           tag: 'Cat Approved 🐾'
         },
         {
@@ -1487,15 +1643,18 @@
       var on = false, started = false;
 
       function fadeAudio(targetVol, duration, onComplete) {
-        var startVol = bgMusic.volume;
+        var startVol = Math.max(0, Math.min(1, bgMusic.volume || 0));
+        var safeTarget = Math.max(0, Math.min(1, targetVol));
         var startTime = performance.now();
         function step(now) {
           var progress = Math.min(1, (now - startTime) / duration);
-          bgMusic.volume = startVol + (targetVol - startVol) * progress;
+          var nextVol = startVol + (safeTarget - startVol) * progress;
+          bgMusic.volume = Math.max(0, Math.min(1, nextVol));
           if (progress < 1) {
             requestAnimationFrame(step);
-          } else if (onComplete) {
-            onComplete();
+          } else {
+            bgMusic.volume = safeTarget;
+            if (onComplete) onComplete();
           }
         }
         requestAnimationFrame(step);
@@ -1505,9 +1664,10 @@
         on = v;
         $('#sound').textContent = v ? 'Sound on' : 'Sound off';
         if (v) {
+          bgMusic.volume = 0;
           var p = bgMusic.play();
           if (p && p.catch) { p.catch(function () { }); }
-          fadeAudio(0.75, 800);
+          fadeAudio(0.75, 1000);
         } else {
           fadeAudio(0, 500, function () {
             if (!on) { bgMusic.pause(); }
@@ -1516,9 +1676,91 @@
       }
 
       function startMusic() {
+        if (started && on) return;
         started = true;
-        bgMusic.volume = 0;
         setSound(true);
+      }
+
+      /* ---- asset preloader ---- */
+      var PRELOAD_LIST = [
+        './assets/images/first-meet.jpeg',
+        './assets/images/first-photo-togather.jpeg',
+        './assets/images/hair-tie.jpeg',
+        './assets/images/pillu-meets-bingus.jpeg',
+        './assets/images/last-meeting.jpeg',
+        './assets/images/happy-birthday-pillu.jpeg',
+        './assets/images/flower-shower.webp',
+        './assets/images/spinning-pillu.webp',
+        './assets/images/majha-pillu.webp'
+      ];
+      var loadedCount = 0;
+      var hasFontsAPI = !!(document.fonts && document.fonts.ready);
+      var totalItems = PRELOAD_LIST.length + 1 + (hasFontsAPI ? 1 : 0);
+      var preloaded = false;
+
+      function updateProgress() {
+        loadedCount++;
+        var bar = $('#pBar');
+        if (bar) {
+          var pct = Math.min(100, Math.round((loadedCount / totalItems) * 100));
+          bar.style.width = pct + '%';
+        }
+        if (loadedCount >= totalItems) {
+          onPreloadComplete();
+        }
+      }
+
+      function onPreloadComplete() {
+        if (preloaded) return;
+        preloaded = true;
+        var pProgress = $('#pProgress'); if (pProgress) pProgress.style.display = 'none';
+        var pSub = $('#pSub'); if (pSub) pSub.textContent = 'All your memories are ready... 🌸';
+        var pBtn = $('#pEnterBtn'); if (pBtn) pBtn.style.display = 'inline-flex';
+        var pTip = $('#pTip'); if (pTip) pTip.style.display = 'block';
+      }
+
+      PRELOAD_LIST.forEach(function (src) {
+        var img = new Image();
+        img.onload = updateProgress;
+        img.onerror = updateProgress;
+        img.src = src;
+      });
+
+      if (hasFontsAPI) {
+        document.fonts.ready.then(updateProgress, updateProgress);
+      }
+
+      try {
+        bgMusic.load();
+        if (bgMusic.readyState >= 3) {
+          updateProgress();
+        } else {
+          bgMusic.addEventListener('canplay', function onCanPlay() {
+            bgMusic.removeEventListener('canplay', onCanPlay);
+            updateProgress();
+          });
+          bgMusic.addEventListener('error', function onAudioErr() {
+            bgMusic.removeEventListener('error', onAudioErr);
+            updateProgress();
+          });
+        }
+      } catch (err) {
+        updateProgress();
+      }
+
+      // Safety timeout: only fallback after 12s if network is exceptionally slow/broken
+      setTimeout(onPreloadComplete, 12000);
+
+      var enterBtn = $('#pEnterBtn');
+      if (enterBtn) {
+        enterBtn.addEventListener('click', function () {
+          startMusic();
+          var pl = $('#preloader');
+          if (pl) {
+            pl.classList.add('fade-out');
+            setTimeout(function () { pl.remove(); }, 850);
+          }
+        });
       }
 
       $('#sound').addEventListener('click', function () {
@@ -1754,7 +1996,7 @@
       function buildWish() {
         var wh = $('#wishHost'); wh.innerHTML = '';
         var box = document.createElement('div'); box.className = 'wish';
-        var h = document.createElement('h3'); h.textContent = 'Tu kay ichha magitli?';
+        var h = document.createElement('h3'); h.textContent = 'Tu kay wish magitli?';
         var ta = document.createElement('textarea'); ta.id = 'wishText';
         ta.setAttribute('aria-label', 'Your wish'); ta.placeholder = 'Write it here, or keep it a secret.';
         var row = document.createElement('div'); row.className = 'row';
