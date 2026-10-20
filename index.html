@@ -613,11 +613,16 @@
       gap: 14px
     }
 
-    #slot {
+    .card-area {
       position: relative;
       width: var(--W);
       height: calc(var(--H)*2);
-      flex: none
+      flex: none;
+    }
+
+    #slot {
+      position: absolute;
+      inset: 0;
     }
 
     .note {
@@ -713,11 +718,11 @@
     .pad {
       position: absolute;
       inset: 0;
-      padding: calc(var(--W)*.07) calc(var(--W)*.08);
+      padding: calc(var(--W)*.06) calc(var(--W)*.07) calc(var(--W)*.12) calc(var(--W)*.07);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 12px;
+      justify-content: flex-start;
+      gap: 8px;
       background-image: repeating-linear-gradient(transparent, transparent 27px, rgba(160, 120, 100, 0.08) 27px, rgba(160, 120, 100, 0.08) 28px);
     }
 
@@ -734,6 +739,10 @@
       font-size: 1.26em;
       font-weight: 700;
       color: var(--rose);
+    }
+
+    .story-2 {
+      padding-right: calc(var(--W)*.22);
     }
 
     /* Staggered story text animations */
@@ -796,17 +805,17 @@
 
     .stamp {
       position: absolute;
-      right: calc(var(--W)*.06);
-      bottom: calc(var(--W)*.035);
+      right: calc(var(--W)*.05);
+      bottom: calc(var(--W)*.025);
       font-family: var(--body);
-      font-size: calc(var(--W)*.032);
+      font-size: calc(var(--W)*.03);
       font-weight: 600;
-      letter-spacing: .1em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--rose);
       border: 1px dashed rgba(196, 82, 106, 0.5);
       border-radius: 999px;
-      padding: 3px 10px;
+      padding: 2px 9px;
       background: rgba(246, 221, 216, 0.45);
     }
 
@@ -828,6 +837,167 @@
       align-items: center;
       box-sizing: border-box;
       transition: transform 0.4s ease;
+    }
+
+    .polaroid.landscape {
+      height: 88%;
+      aspect-ratio: 1.35 / 1;
+      max-width: 92%;
+    }
+
+    /* Final Birthday Card - Golden aura & celebratory styling */
+    .note.final .band {
+      box-shadow: 0 0 28px rgba(255, 215, 0, 0.32), 0 16px 36px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+    }
+
+    .note.final .polaroid {
+      height: 95%;
+      aspect-ratio: 0.88 / 1;
+      max-width: 94%;
+      padding: 7px 7px 8px 7px;
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.42), 0 16px 36px rgba(0, 0, 0, 0.38);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+    }
+
+    /* Floating Crown on Birthday Photo */
+    .photo-crown {
+      position: absolute;
+      top: 5px;
+      left: 45%;
+      transform: translateX(-50%) rotate(-6deg);
+      font-size: 38px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 14px rgba(255, 215, 0, 0.85));
+      z-index: 10;
+      pointer-events: none;
+      animation: crownFloat 2.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes crownFloat {
+      0% {
+        transform: translateX(-50%) rotate(-6deg) translateY(0);
+      }
+
+      100% {
+        transform: translateX(-50%) rotate(-2deg) translateY(-4px);
+      }
+    }
+
+    /* Floating Animated Stickers outside the Final Card */
+    .final-stickers {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0;
+      transition: opacity 0.8s ease 0.4s;
+    }
+
+    .final-stickers.show {
+      opacity: 1;
+    }
+
+    .f-sticker {
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
+      will-change: transform;
+    }
+
+    .f-sticker-flower {
+      top: -50px;
+      right: -95px;
+      width: 125px;
+      height: 125px;
+      animation: stickerFloat 3s ease-in-out infinite alternate;
+    }
+
+    .f-sticker-spin {
+      bottom: -15px;
+      right: -105px;
+      width: 110px;
+      height: 110px;
+      border-radius: 14px;
+      animation: stickerBounce 2.4s ease-in-out infinite alternate;
+    }
+
+    .f-sticker-couple {
+      top: 48%;
+      left: -115px;
+      transform: translateY(-50%) rotate(-4deg);
+      width: 110px;
+      height: 110px;
+      border-radius: 12px;
+      animation: stickerFloatLeft 3.2s ease-in-out infinite alternate;
+    }
+
+    @media (max-width: 650px) {
+      .f-sticker-flower {
+        top: -35px;
+        right: -25px;
+        width: 80px;
+        height: 80px;
+      }
+
+      .f-sticker-spin {
+        bottom: -10px;
+        right: -20px;
+        width: 75px;
+        height: 75px;
+        border-radius: 8px;
+      }
+
+      .f-sticker-couple {
+        top: 20%;
+        left: -24px;
+        transform: translateY(-50%) rotate(-4deg);
+        width: 75px;
+        height: 75px;
+        border-radius: 8px;
+      }
+    }
+
+    @keyframes stickerFloat {
+      0% {
+        transform: translateY(0) rotate(3deg);
+      }
+
+      100% {
+        transform: translateY(-8px) rotate(-3deg);
+      }
+    }
+
+    @keyframes stickerBounce {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        transform: translateY(-6px) scale(1.05);
+      }
+    }
+
+    @keyframes stickerFloatLeft {
+      0% {
+        transform: translateY(0) rotate(-4deg);
+      }
+
+      100% {
+        transform: translateY(-7px) rotate(3deg);
+      }
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0;
+      }
     }
 
     .unfolded .polaroid {
@@ -977,12 +1147,34 @@
       pointer-events: none
     }
 
+    .reader-actions {
+      position: relative;
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
     .readhint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
       margin: 0;
       font-size: 14px;
       color: var(--muted);
       text-align: center;
-      min-height: 21px
+      pointer-events: none;
+    }
+
+    #readNav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .fade {
@@ -1193,10 +1385,19 @@
 
     <div id="reader" hidden>
       <div class="rwrap">
-        <div id="slot"></div>
-        <p class="readhint" id="readHint"></p>
+        <div class="card-area">
+          <div id="slot"></div>
+          <div id="finalStickers" class="final-stickers" aria-hidden="true">
+            <img class="f-sticker f-sticker-flower" src="./assets/images/flower-shower.webp" alt="">
+            <img class="f-sticker f-sticker-spin" src="./assets/images/spinning-pillu.webp" alt="">
+            <img class="f-sticker f-sticker-couple" src="./assets/images/majha-pillu.webp" alt="">
+          </div>
+        </div>
         <div id="wishHost" class="fade"></div>
-        <div class="fade" id="readNav"></div>
+        <div class="reader-actions">
+          <p class="readhint" id="readHint"></p>
+          <div class="fade" id="readNav"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1204,7 +1405,7 @@
   <script>
     (function () {
       /* ---------- Edit these ---------- */
-      var WA_NUMBER = ''; /* your WhatsApp number with country code, digits only, for example '919876543210' */
+      var WA_NUMBER = '917775800869'; /* your WhatsApp number with country code, digits only, for example '919876543210' */
       /* photo: a picture URL or data URI. Leave '' to show a placeholder picture. */
       /* title: text shown on the outside of the folded chit before opening (e.g. 'First Meeting'). */
       var NOTES = [
@@ -1213,20 +1414,63 @@
           photo: './assets/images/first-meet.jpeg',
           photoPos: 'center 70%',
           photoCaption: 'Aapli First Meeting ✨',
-          text: 'He aapli first meeting... Aani to moment jevha mi pahilyanda konacha haath asa pakadla hota.',
+          text: 'He aapli first meeting... Aani to moment jevha mi pahili vela konacha haath asa pakadla hota.',
           bottom: 'Mazya pillucha haath... Jo haath mala kadhich sodusha nahi vatat. ❤️',
           tag: 'First meet 🤍'
         },
-        { title: '', photo: '', text: '[Second memory.]', bottom: '[A closing line.]', tag: '[place, date]' },
-        { title: '', photo: '', text: '[Third memory.]', secret: '[Something you never said out loud]', tag: '[place, date]' },
-        { title: '', photo: '', text: '[Fourth memory.]', bottom: '[A closing line.]', tag: '[place, date]' },
-        { title: '', photo: '', text: '[Fifth memory: one of the last good ones.]', bottom: '[A closing line.]', tag: '[place, date]' }
+        {
+          title: 'First Photo Together',
+          photo: './assets/images/first-photo-togather.jpeg',
+          landscape: true,
+          photoPos: '55% center',
+          photoCaption: 'Aapli First Selfie 🥰',
+          text: 'Pahilyanda camera samor aalo tevha thodasa awkward aani khup saara nervous hoto... ithe tu mala flowers pn dile hote ani apan khub sara time spend kela hota, tari pn kamich vate',
+          tag: 'Special Day 🌿'
+        },
+        {
+          title: 'A Piece of You 🎀',
+          photo: './assets/images/hair-tie.jpeg',
+          photoPos: 'center 45%',
+          photoCaption: 'A Special Gift 🤍',
+          text: 'Tevha tu tujhi hair-tie kadhun mazya haatavar dili hoti. Ek chhotishi vastu, pan mazya sathi khup special hoti... Asa vatla ki tujha ek chhotasa tukda nehmi mazya sobat rahil.',
+          bottom: 'He hair-tie ani tujhe saglech gifts khub sambalun thevle ahe. 🥰',
+          tag: 'Pillu Gift 🎁'
+        },
+        {
+          title: 'Pillu Meets Cat 🐾',
+          photo: './assets/images/pillu-meets-bingus.jpeg',
+          photoPos: 'center 32%',
+          photoCaption: 'Two Pillus Together 🐱🥰',
+          text: 'Tula mazya ghari aanyacha aani Bingus la bhetvaycha mi kiti divsa pasun vichar karat hoto! Tu aali aani Bingus tujhyach javal yeun shant jhopla... tyala pan lagech samajla ki tu kiti special aahes.',
+          tag: 'Cat Approved 🐾'
+        },
+        {
+          title: 'Last Meeting ?',
+          photo: './assets/images/last-meeting.jpeg',
+          landscape: true,
+          photoPos: 'center center',
+          photoCaption: 'Pillu Hands 🤍',
+          text: 'I miss this',
+          tag: 'Forever In Heart 🌿'
+        }
       ];
-      var FINAL = { title: '', photo: '', lines: ['Vaadhdivsachya khup khup shubhechha.', 'Mi ajunahi tujhyavar khup prem karto.'], bottom: 'Tula jevha vatel, tevha bol. Mi ithech aahe.' };
+      var FINAL = {
+        title: 'Happy Birthday Pillu 🎂✨',
+        photo: './assets/images/happy-birthday-pillu.jpeg',
+        photoPos: 'center 18%',
+        photoCaption: 'The Birthday Girl 👑💖',
+        crown: true,
+        lines: [
+          'Happy Birthday, Pillu! 🎂✨',
+          'Wherever life takes us, my heart will always wish the absolute best for you.'
+        ],
+        bottom: 'I love you with every fiber of my being. Take care of yourself. ❤️',
+        // tag: 'Forever & Always 🤍'
+      };
       var COPY = {
         intro: { title: 'Tujha Web Developer Pillu Ni he tujha sathi banavla ahe.', sub: 'Ya Jar madhe applya memories ahe, secret madhe open karjo.', hint: 'Tap the jar.', label: 'Open the jar' },
-        candle: { title: 'Ek chitthi ajun baaki aahe.', sub: 'Mombattivar funkar mar, aani ek ichha maag.', hint: 'Make a wish, then tap the candle.', label: 'Blow out the candle' },
-        done: { title: 'Barni tujhich aahe.', sub: 'Havya tevha, kontihi aathvan parat vach.', hint: 'Tap any chit in the pile to read it again.', label: 'The jar' }
+        candle: { title: 'Ajun ek special chitthi baaki aahe... 🕯️✨', sub: 'Manat ek wish maag, aani ya candle var fuk maar. 🎂🤍', hint: 'Make a wish, then tap the candle.', label: 'Blow out the candle' },
+        done: { title: 'All these memories are yours. ✨', sub: 'Come back whenever you want, and read any moment again.', hint: 'Tap any chit in the pile to read it again.', label: 'The jar' }
       };
       /* -------------------------------- */
 
@@ -1401,9 +1645,10 @@
 
       function photoHTML(d, i) {
         var cap = d.photoCaption || d.title || '';
-        var pos = d.photoPos || 'center 69%';
+        var pos = d.photoPos || (d.landscape ? '55% center' : 'center 70%');
         if (d.photo) {
-          return '<div class="photo" title="Tap to view full photo"><img alt="" src="' + esc(d.photo) + '" style="object-position:' + esc(pos) + '"></div>' +
+          var crownHTML = d.crown ? '<div class="photo-crown" aria-hidden="true">👑</div>' : '';
+          return '<div class="photo" title="Tap to view full photo">' + crownHTML + '<img alt="" src="' + esc(d.photo) + '" style="object-position:' + esc(pos) + '"></div>' +
             (cap ? '<div class="instax-cap"><span class="hand">' + esc(cap) + '</span></div>' : '');
         }
         return '<div class="photo">' + scene(i) + '<span class="ptag">Your photo here</span></div>';
@@ -1419,8 +1664,11 @@
           letterContent = d.lines.map(function (l, i) {
             return '<p class="hand story-1' + (i === 0 ? ' lg' : '') + '">' + esc(l) + '</p>';
           }).join('') + '<p class="hand lg story-2" style="margin-top:12px;">' + esc(d.bottom || '') + '</p>';
+          if (d.tag) {
+            letterContent += '<span class="stamp">' + esc(d.tag) + '</span>';
+          }
         } else {
-          letterContent = '<p class="hand story-1">' + esc(d.text || '') + '</p>';
+          letterContent = d.text ? '<p class="hand story-1">' + esc(d.text) + '</p>' : '';
           if (d.secret) {
             letterContent += '<div class="scratchwrap story-2" style="margin-top:8px;"><p class="hand lg">' + esc(d.secret) + '</p><canvas></canvas></div>';
           } else if (d.bottom) {
@@ -1436,7 +1684,7 @@
         el.innerHTML = '<div class="sheet">' +
           '<div class="band"><div class="pad">' + letterContent + '</div></div>' +
           '<div class="flap top">' +
-          '<div class="face"><div class="polaroid">' + photoHTML(d, n) + '</div></div>' +
+          '<div class="face"><div class="polaroid' + (d.landscape ? ' landscape' : '') + '">' + photoHTML(d, n) + '</div></div>' +
           '<div class="face back"><div class="outer">' + outer + '</div></div>' +
           '</div>' +
           '<div class="ribbon"></div>' +
@@ -1489,9 +1737,11 @@
 
       function sizeReader(isFinal) {
         var vw = window.innerWidth, vh = window.innerHeight;
-        var reserve = isFinal ? 360 : 150, Rn = R;
-        var W = Math.min(vw * .84, 320, (vh - reserve) / (2 * Rn));
-        W = Math.max(220, W);
+        var reserve = 130;
+        var Rn = isFinal ? 0.84 : R;
+        var maxW = isFinal ? 395 : 330;
+        var W = Math.min(vw * .88, maxW, (vh - reserve) / (2 * Rn));
+        W = Math.max(240, W);
         reader.style.setProperty('--W', W + 'px');
         reader.style.setProperty('--H', (W * Rn) + 'px');
       }
@@ -1508,28 +1758,12 @@
         var ta = document.createElement('textarea'); ta.id = 'wishText';
         ta.setAttribute('aria-label', 'Your wish'); ta.placeholder = 'Write it here, or keep it a secret.';
         var row = document.createElement('div'); row.className = 'row';
-        var send = document.createElement('a'); send.className = 'btn'; send.target = '_blank'; send.rel = 'noopener'; send.textContent = 'Open in WhatsApp';
-        var hi = document.createElement('a'); hi.className = 'ghost'; hi.target = '_blank'; hi.rel = 'noopener'; hi.textContent = 'Fakt “hi” mhan';
-        row.appendChild(send); row.appendChild(hi);
-        var note = document.createElement('p'); note.className = 'small'; note.textContent = 'No need to reply today. The jar stays here.';
-        function refresh() { send.href = waHref(ta.value.trim()); hi.href = waHref('Hi') }
+        var send = document.createElement('a'); send.className = 'btn'; send.target = '_blank'; send.rel = 'noopener'; send.textContent = 'Send wish ✨';
+        send.style.width = '100%';
+        function refresh() { send.href = waHref(ta.value.trim()); }
         ta.addEventListener('input', refresh); refresh();
-        box.appendChild(h); box.appendChild(ta); box.appendChild(row); box.appendChild(note);
-        if (!WA_NUMBER) {
-          var wn = document.createElement('p'); wn.className = 'warn';
-          wn.textContent = 'Preview note: the WhatsApp number is not set yet, so these buttons do nothing. It has to be added before this is sent.';
-          box.appendChild(wn);
-          [send, hi].forEach(function (a) { a.addEventListener('click', function (ev) { ev.preventDefault() }) });
-        } else {
-          var nl = document.createElement('p'); nl.className = 'small';
-          nl.appendChild(document.createTextNode('Or message +' + WA_NUMBER + ' '));
-          var cp = document.createElement('button'); cp.type = 'button'; cp.className = 'copy'; cp.textContent = 'Copy number';
-          cp.addEventListener('click', function () {
-            try { navigator.clipboard.writeText('+' + WA_NUMBER).then(function () { cp.textContent = 'Copied' }, function () { cp.textContent = 'Select the number above' }) }
-            catch (err) { cp.textContent = 'Select the number above' }
-          });
-          nl.appendChild(cp); box.appendChild(nl);
-        }
+        row.appendChild(send);
+        box.appendChild(h); box.appendChild(ta); box.appendChild(row);
         wh.appendChild(box);
       }
 
@@ -1547,6 +1781,7 @@
         $('#wishHost').classList.remove('show'); $('#wishHost').innerHTML = '';
         $('#readNav').classList.remove('show'); $('#readNav').innerHTML = '';
         $('#readHint').textContent = '';
+        var fs = $('#finalStickers'); if (fs) fs.classList.remove('show');
         reader.hidden = false;
         reader.scrollTop = 0;
         note.style.visibility = 'hidden';
@@ -1592,6 +1827,28 @@
         });
       }
 
+      function launchCelebration() {
+        var colors = ['#F87171', '#F472B6', '#FBBF24', '#34D399', '#60A5FA', '#A78BFA', '#FFF'];
+        var container = document.createElement('div');
+        container.className = 'confetti-burst';
+        container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden;';
+        for (var i = 0; i < 45; i++) {
+          var p = document.createElement('div');
+          var size = 6 + Math.random() * 8;
+          var isHeart = Math.random() > 0.6;
+          p.style.cssText = 'position:absolute;top:-20px;left:' + (Math.random() * 100) + 'vw;' +
+            'width:' + size + 'px;height:' + (size * (isHeart ? 1 : 1.4)) + 'px;' +
+            'background:' + colors[Math.floor(Math.random() * colors.length)] + ';' +
+            'border-radius:' + (isHeart ? '50%' : '2px') + ';' +
+            'opacity:' + (0.7 + Math.random() * 0.3) + ';' +
+            'transform:rotate(' + (Math.random() * 360) + 'deg);' +
+            'animation:confettiFall ' + (2.5 + Math.random() * 2) + 's ease-out forwards ' + (Math.random() * 0.6) + 's;';
+          container.appendChild(p);
+        }
+        document.body.appendChild(container);
+        setTimeout(function () { container.remove(); }, 5500);
+      }
+
       function finishOpen(n, opts, note) {
         var isFinal = (n === total - 1);
         note.style.cursor = 'default';
@@ -1607,12 +1864,18 @@
           else { leave(note, n) }
         });
         nav.appendChild(btn);
-        if (isFinal && !opts.reread) { buildWish(); $('#wishHost').classList.add('show') }
-        if (isFinal && opts.reread) { buildWish(); $('#wishHost').classList.add('show') }
+        if (isFinal) {
+          var fs = $('#finalStickers');
+          if (fs) fs.classList.add('show');
+          launchCelebration();
+          buildWish();
+          $('#wishHost').classList.add('show');
+        }
         nav.classList.add('show');
       }
 
       function toPile(note, done) {
+        var fs = $('#finalStickers'); if (fs) fs.classList.remove('show');
         var nr = note.getBoundingClientRect(), pr = $('#pile').getBoundingClientRect();
         var dx = pr.left + pr.width / 2 - (nr.left + nr.width / 2), dy = pr.top + pr.height - (nr.top + nr.height / 2);
         var a = note.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(8deg) scale(.14)', opacity: 0 }], { duration: 800, easing: 'cubic-bezier(.5,0,.8,.4)', fill: 'forwards' });
